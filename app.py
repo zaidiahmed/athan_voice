@@ -59,7 +59,7 @@ def makeWebhookResult(data):
     return {
         "speech": speech,
         "displayText": speech,
-         "data": [],
+         "data": {},
          "contextOut": [],
         "source": "prayer-times-api"
     }
