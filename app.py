@@ -32,16 +32,10 @@ def webhook():
 
 def processRequest(req):
     baseurl = "http://api.aladhan.com/timingsByCity?city=Dallas&country=USA&method=2"
-    query = makeYqlQuery(req)
-    if query is None:
-        return {"404"}
-    result = urllib.urlopen(query).read()
+    result = urllib.urlopen(baseurl).read()
     data = json.loads(result)
     res = makeWebhookResult(data)
     return res
-
-def makeYqlQuery(req):
-    return "http://api.aladhan.com/timingsByCity?city=Dallas&country=USA&method=2"
 
 def makeWebhookResult(data):
     adata = data.get('data')
@@ -65,6 +59,8 @@ def makeWebhookResult(data):
     return {
         "speech": speech,
         "displayText": speech,
+         # "data": data,
+         # "contextOut": [],
         "source": "prayer-times-api"
     }
 
