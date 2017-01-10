@@ -12,7 +12,7 @@ from flask import make_response
 app = Flask(__name__)
 
 
-@app.route('/webhook', methods=['POST'])
+@app.route('/', methods=['POST'])
 def webhook():
     req = request.get_json(silent=True, force=True)
 
@@ -43,7 +43,6 @@ def processRequest(req):
 def makeYqlQuery(req):
     return "http://api.aladhan.com/timingsByCity?city=Dallas&country=USA&method=2"
 
-
 def makeWebhookResult(data):
     adata = data.get('data')
     if adata is None:
@@ -55,14 +54,8 @@ def makeWebhookResult(data):
 
     #get fajr
     fajr = timings.get("Fajr")
-
-    # item = channel.get('item')
-    # location = channel.get('location')
-    # units = channel.get('units')
     if (fajr is None):
         return {}
-
-    # print(json.dumps(item, indent=4))
 
     speech = "Today Fajr is at ", fajr
 
@@ -72,8 +65,6 @@ def makeWebhookResult(data):
     return {
         "speech": speech,
         "displayText": speech,
-        # "data": data,
-        # "contextOut": [],
         "source": "prayer-times-api"
     }
 
